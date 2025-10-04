@@ -1,97 +1,164 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# Contact Manager App
 
-# Getting Started
+Welcome to Adams Contact Manager App. Please read through this entire read me to get an 
+understanding of what you need to install and what prereqs you need to run the app. Thanks!
 
-> **Note**: Make sure you have completed the [Set Up Your Environment](https://reactnative.dev/docs/set-up-your-environment) guide before proceeding.
+## Features
 
-## Step 1: Start Metro
+- View and manage contact list
+- Search contacts by name, email, or company
+- Add new contacts with form validation
+- Edit existing contact details
+- Delete contacts
+- Mark contacts as favorites
+- Pull-to-refresh functionality
+- Persistent storage
+- Accessible UI with screen reader support
 
-First, you will need to run **Metro**, the JavaScript build tool for React Native.
+## Prerequisites
 
-To start the Metro dev server, run the following command from the root of your React Native project:
+- Node.js (v14 or higher)
+- React Native CLI
+- Android Studio (for Android development)
+- Xcode (for iOS development, macOS only)
+- Java Development Kit (JDK 11 or higher)
 
-```sh
-# Using npm
-npm start
+## Installation intructions
 
-# OR using Yarn
-yarn start
+1. Clone the repository:
+```bash
+git clone https://github.com/Sancoltos/ContactManagerApp
+cd ContactManagerApp
 ```
 
-## Step 2: Build and run your app
+2. Install dependencies:
+```bash
+npm install
+```
 
-With Metro running, open a new terminal window/pane from the root of your React Native project, and use one of the following commands to build and run your Android or iOS app:
+3. Install required packages:
+```bash
+npm install react-native-vector-icons
+npm install @react-native-async-storage/async-storage
+npm install react-native-image-picker
+```
+
+4. Link vector icons for Android:
+Add this line to `android/app/build.gradle`:
+```gradle
+apply from: "../../node_modules/react-native-vector-icons/fonts.gradle"
+```
+
+5. Install iOS pods (this is for mac only not windows):
+```bash
+npx pod-install
+```
+
+## Running the App
 
 ### Android
-
-```sh
-# Using npm
+```bash
 npm run android
-
-# OR using Yarn
-yarn android
 ```
 
 ### iOS
-
-For iOS, remember to install CocoaPods dependencies (this only needs to be run on first clone or after updating native deps).
-
-The first time you create a new project, run the Ruby bundler to install CocoaPods itself:
-
-```sh
-bundle install
-```
-
-Then, and every time you update your native dependencies, run:
-
-```sh
-bundle exec pod install
-```
-
-For more information, please visit [CocoaPods Getting Started guide](https://guides.cocoapods.org/using/getting-started.html).
-
-```sh
-# Using npm
+```bash
 npm run ios
-
-# OR using Yarn
-yarn ios
 ```
 
-If everything is set up correctly, you should see your new app running in the Android Emulator, iOS Simulator, or your connected device.
+## Project Structure
 
-This is one way to run your app — you can also build it directly from Android Studio or Xcode.
+```
+ContactManagerApp/
+├── src/
+│   ├── components/
+│   │   ├── common/
+│   │   │   ├── ContactListItem.js
+│   │   │   ├── CustomButton.js
+│   │   │   ├── CustomInput.js
+│   │   │   └── LoadingSpinner.js
+│   │   └── forms/
+│   ├── data/
+│   │   └── contactsData.js
+│   ├── screens/
+│   │   ├── AddContact/
+│   │   │   └── AddContactScreen.js
+│   │   ├── ContactDetails/
+│   │   │   └── ContactDetailsScreen.js
+│   │   └── ContactList/
+│   │       └── ContactListScreen.js
+│   ├── styles/
+│   │   └── globalStyles.js
+│   └── utils/
+│       └── ContactContext.js
+├── App.js
+└── package.json
+```
 
-## Step 3: Modify your app
+## Key Components
 
-Now that you have successfully run the app, let's make changes!
+### ContactContext
+Manages global contact state
 
-Open `App.tsx` in your text editor of choice and make some changes. When you save, your app will automatically update and reflect these changes — this is powered by [Fast Refresh](https://reactnative.dev/docs/fast-refresh).
+### CustomInput
+Reusable input component with:
+- Animated floating labels
+- Icon support
+- Error validation display
+- Accessibility features
 
-When you want to forcefully reload, for example to reset the state of your app, you can perform a full reload:
+### ContactListScreen
+Main screen displaying:
+- Searchable contact list
+- Floating action button for adding contacts
+- Performance optimizations with FlatList
 
-- **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Dev Menu**, accessed via <kbd>Ctrl</kbd> + <kbd>M</kbd> (Windows/Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (macOS).
-- **iOS**: Press <kbd>R</kbd> in iOS Simulator.
+### AddContactScreen
+Form for adding/editing contacts with:
+- Real-time validation
+- Form field navigation
+- Error handling
 
-## Congratulations! :tada:
+### ContactDetailsScreen
+Simple edit screen for updating contact information.
 
-You've successfully run and modified your React Native App. :partying_face:
+## Data Model
 
-### Now what?
+Each contact contains:
+- `id`: Unique identifier
+- `firstName`: Contact's first name
+- `lastName`: Contact's last name
+- `email`: Email address
+- `phone`: Phone number
+- `company`: Company name (optional)
+- `avatar`: Profile image URL (optional)
+- `notes`: Additional notes (optional)
+- `favorite`: Boolean favorite status
+- `createdAt`: Creation timestamp
 
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [docs](https://reactnative.dev/docs/getting-started).
 
-# Troubleshooting
 
-If you're having issues getting the above steps to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
+## Performance Optimizations
 
-# Learn More
+- `useMemo` for filtered/sorted contact lists
+- `useCallback` for event handlers
+- `memo` wrapper on ContactListItem
+- `FlatList` optimizations
 
-To learn more about React Native, take a look at the following resources:
 
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+
+## Tech Used
+
+- React Native
+- React Context API
+- AsyncStorage for local persistence
+- React Native Vector Icons
+- React Hooks (useState, useEffect, useMemo, useCallback)
+
+
+## Lab Information
+
+**Course:** CPAN 213 - Cross-Platform Mobile Application Development  
+**Lab:** Lab 3 - Building Interactive UI with Core Components  
+**Date:** October 4th
+**Instructor:** Horia Humaila
